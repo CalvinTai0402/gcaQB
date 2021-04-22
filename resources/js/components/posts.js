@@ -13,12 +13,14 @@ import {
     ReferenceInput,
     SelectInput,
     TextInput,
-    Filter
+    Filter,
+    DateInput,
+    DateField
 } from 'react-admin';
 
 const PostFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Test" source="q" alwaysOn />
+        <TextInput label="Search" source="q" alwaysOn />
         <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput>
@@ -43,6 +45,7 @@ export const PostList = (props) => {
                     </ReferenceField>
                     <TextField source="title" />
                     <TextField source="body" />
+                    <DateField source="publishedAt"/>
                     <EditButton />
                 </Datagrid>
             )}
@@ -63,6 +66,7 @@ export const PostEdit = props => (
             </ReferenceInput>
             <TextInput source="title" />
             <TextInput multiline source="body" />
+            <DateInput label="Published" source="publishedAt"/>
         </SimpleForm>
     </Edit>
 );
@@ -75,6 +79,7 @@ export const PostCreate = props => (
             </ReferenceInput>
             <TextInput source="title" />
             <TextInput multiline source="body" />
+            <DateInput label="Published" source="publishedAt"/>
         </SimpleForm>
     </Create>
 );

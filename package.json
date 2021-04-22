@@ -7,7 +7,8 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "server": "json-server --watch db.json --port 5000"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",
@@ -25,6 +26,7 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "json-server": "^0.16.3",
         "ra-data-json-server": "^3.14.4",
         "react-admin": "^3.14.4"
     }
