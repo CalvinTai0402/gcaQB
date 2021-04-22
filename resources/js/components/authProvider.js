@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default {
     // called when the user attempts to log in
     login: ({ username }) => {
@@ -14,6 +12,7 @@ export default {
         ).catch(error => {
             console.log("ERROR:: ", error.response.data);
         });
+        return Promise.resolve();
     },
     // called when the API returns an error
     checkError: ({ status }) => {
