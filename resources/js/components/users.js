@@ -9,7 +9,6 @@ export const UserList = props => (
             <TextField source="name" />
             <EmailField source="email" />
             <TextField source="phone" />
-            <TextField source="website" />
             <MyUrlField source="website" />
             <TextField source="company.name" />
         </Datagrid>

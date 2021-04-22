@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
     // called when the user attempts to log in
     login: ({ username }) => {
@@ -8,7 +10,6 @@ export default {
     // called when the user clicks on the logout button
     logout: () => {
         axios.post('http://127.0.0.1:8000/logout').then(r=>{
-            console.log("Hit");
             window.location = "/";
         }).catch(error => {
             console.log("ERROR:: ", error.response.data);
