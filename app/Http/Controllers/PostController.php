@@ -21,12 +21,16 @@ class PostController extends Controller
         $page = $request->input("page");
         $perPage = $request->input("perPage");
         $toSkip = ($page-1) * $perPage;
-        $posts = Post::where('name','LIKE','%'.$filter.'%')
-                        ->where('title','LIKE','%'.$filter.'%')
-                        ->where('body','LIKE','%'.$filter.'%')
-                        ->orderBy($field, $order)->skip($toSkip)->take($perPage)->get();
+        // $posts = Post::where('title','LIKE','%'.$filter.'%')
+        //                 ->orWhere('body','LIKE','%'.$filter.'%')
+        //                 ->orderBy($field, $order)->skip($toSkip)->take($perPage)->get();
+        $posts = Post::title($filter)
+                        ->body($filter)
+                        ->order($field, $order)
+                        ->skip($toSkip)
+                        ->take($perPage)
+                        ->get();
         $countAndPosts = json_encode(array($count, $posts));
-        // return $countAndPosts;
         return response($countAndPosts, 200)
                 ->header('X-Total-Count', $count)
                 ->header('Access-Control-Expose-Headers', 'X-Total-Count');
@@ -100,7 +104,16 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-
         return response()->json(null, 204);
+    }
+
+    public function destroyMany(Request $request)
+    {
+        $filter = $request->input("filter");
+        $filter = json_decode($filter);
+        $ids = trim(json_encode($filter->id), "[]"); // $ids is of the string type
+        $postsToDelete = Post::whereIn('id',explode(",",$ids))->get();
+        Post::whereIn('id',explode(",",$ids))->delete();
+        return response()->json($postsToDelete, 200);
     }
 }

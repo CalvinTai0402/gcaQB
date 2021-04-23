@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('test', [App\Http\Controllers\UserController::class, 'index']);
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -22,4 +24,12 @@ Route::get('posts', [App\Http\Controllers\PostController::class, 'index']);
 Route::get('posts/{post}', [App\Http\Controllers\PostController::class, 'show']);
 Route::post('posts', [App\Http\Controllers\PostController::class, 'store']);
 Route::put('posts/{post}', [App\Http\Controllers\PostController::class, 'update']);
+Route::delete('posts', [App\Http\Controllers\PostController::class, 'destroyMany']);
 Route::delete('posts/{post}', [App\Http\Controllers\PostController::class, 'destroy']);
+
+Route::get('users', [App\Http\Controllers\UserController::class, 'index']);
+Route::get('users/{user}', [App\Http\Controllers\UserController::class, 'show']);
+Route::post('users', [App\Http\Controllers\UserController::class, 'store']);
+Route::put('users/{user}', [App\Http\Controllers\UserController::class, 'update']);
+Route::delete('users', [App\Http\Controllers\UserController::class, 'destroyMany']);
+Route::delete('users/{user}', [App\Http\Controllers\UserController::class, 'destroy']);
