@@ -1,38 +1,44 @@
 import * as React from "react";
-import ReactDOM from 'react-dom'
-import { fetchUtils, Admin, Resource } from 'react-admin';
+import ReactDOM from "react-dom";
+import { fetchUtils, Admin, Resource } from "react-admin";
 // import { jsonServerRestClient, Admin, Resource } from 'admin-on-rest';
-// import jsonServerProvider from 'ra-data-json-server';
+import jsonServerProvider from "ra-data-json-server";
 import dataProvider from "./dataProvider";
 
-import PostIcon from '@material-ui/icons/Book';
-import UserIcon from '@material-ui/icons/Group';
-import CustomerIcon from '@material-ui/icons/PersonAddSharp';
+import PostIcon from "@material-ui/icons/Book";
+import UserIcon from "@material-ui/icons/Group";
+import CustomerIcon from "@material-ui/icons/PersonAddSharp";
 
-import Dashboard from './Dashboard';
-import authProvider from './authProvider';
-import { UserList } from './users';
-import { PostList, PostEdit, PostCreate } from './posts';
-import { CustomerCreate } from './customers';
+import Dashboard from "./Dashboard";
+import authProvider from "./authProvider";
+import { UserList } from "./users";
+import { PostList, PostEdit, PostCreate } from "./posts";
+import { CustomerCreate } from "./customers";
 
-// const dataProvider = jsonServerProvider('http://localhost:8000/api');
+// const dataProvider = jsonServerProvider("http://localhost:5000");
 
 const App = () => (
     <div>
-        <Admin dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
-            <Resource name="posts" list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon} />
-            {/* <Resource name="users" list={UserList} icon={UserIcon} /> */}
+        <Admin
+            dashboard={Dashboard}
+            authProvider={authProvider}
+            dataProvider={dataProvider}
+        >
+            <Resource
+                name="posts"
+                list={PostList}
+                edit={PostEdit}
+                create={PostCreate}
+                icon={PostIcon}
+            />
+            <Resource name="users" list={UserList} icon={UserIcon} />
             {/* <Resource name="customers" create={CustomerCreate} icon={CustomerIcon} /> */}
         </Admin>
-        {/* <Admin restClient={jsonServerRestClient('http://localhost:8000/api')}>
-            <Resource name="posts" list={PostList} />
-        </Admin> */}
     </div>
-
 );
 
 export default App;
 
-if (document.getElementById('admin')) {
-    ReactDOM.render(<App />, document.getElementById('admin'));
+if (document.getElementById("admin")) {
+    ReactDOM.render(<App />, document.getElementById("admin"));
 }

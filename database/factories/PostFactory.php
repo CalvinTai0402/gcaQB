@@ -23,7 +23,6 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'name' => Str::random(10),
             'title' => $this->faker->sentence(1),
             'body' => $this->faker->sentence(7),
             'published_at' => $this->faker->date('Y-m-d'),
