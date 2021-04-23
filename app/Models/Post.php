@@ -26,7 +26,7 @@ class Post extends Model
             // $js_code = 'console.log(' . json_encode($filter, JSON_HEX_TAG) . ');';
             // $js_code = '<script>' . $js_code . '</script>';
             // echo $js_code;
-            return $query->where('title', 'LIKE', '%'.$filter.'%');
+            return $query->orWhere('title', 'LIKE', '%'.$filter.'%');
         }
 
         return $query;
@@ -36,6 +36,17 @@ class Post extends Model
     {
         if (!is_null($filter)) {
             return $query->orWhere('body', 'LIKE', '%'.$filter.'%');
+        }
+
+        return $query;
+    }
+
+    public function scopeName($query, $filter)
+    {
+        if (!is_null($filter)) {
+            $user_ids = User::name($filter)->pluck('id')->toArray();
+            $user_ids = trim(json_encode($user_ids), "[]");
+            return $query->whereIn('user_id',explode(",",$user_ids));
         }
 
         return $query;

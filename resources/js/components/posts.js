@@ -23,7 +23,7 @@ const PostFilter = (props) => (
         <TextInput label="Search" source="q" alwaysOn />
         <ReferenceInput
             label="User"
-            source="userId"
+            source="user_id"
             reference="users"
             allowEmpty
         >

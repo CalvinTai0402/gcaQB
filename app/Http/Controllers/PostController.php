@@ -24,8 +24,9 @@ class PostController extends Controller
         // $posts = Post::where('title','LIKE','%'.$filter.'%')
         //                 ->orWhere('body','LIKE','%'.$filter.'%')
         //                 ->orderBy($field, $order)->skip($toSkip)->take($perPage)->get();
-        $posts = Post::title($filter)
+        $posts = Post::name($filter)
                         ->body($filter)
+                        ->title($filter)
                         ->order($field, $order)
                         ->skip($toSkip)
                         ->take($perPage)
