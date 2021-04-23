@@ -40,12 +40,12 @@ export const PostList = (props) => {
             ) : (
                 <Datagrid>
                     <TextField source="id" />
-                    <ReferenceField label="User" source="userId" reference="users">
+                    <ReferenceField  source="user_id" reference="users">
                         <TextField source="name" />
                     </ReferenceField>
                     <TextField source="title" />
                     <TextField source="body" />
-                    <DateField source="publishedAt"/>
+                    <DateField source="published_at"/>
                     <EditButton />
                 </Datagrid>
             )}

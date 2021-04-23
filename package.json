@@ -26,6 +26,7 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "admin-on-rest": "^1.4.1",
         "json-server": "^0.16.3",
         "ra-data-json-server": "^3.14.4",
         "react-admin": "^3.14.4"
