@@ -16,28 +16,27 @@ class UserController extends Controller
     {
         $filter = $request->input("filter");
         $count = User::count();
-        // if (property_exists(json_decode($filter),"id")) {
-        if (! is_null($filter)) {
-            $ids = json_decode($filter)->id;
-            $users = User::find($ids);
-            return $users;
+        if ((!is_null(json_decode($filter))) && gettype(json_decode($filter)) != "integer") {
+            if(property_exists((json_decode($filter)), "id")){
+                $ids = json_decode($filter)->id;
+                $users = User::find($ids);
+                return $users;
+            }
         }
-        else {
-            $field = $request->input("field");
-            $order = $request->input("order");
-            $page = $request->input("page");
-            $perPage = $request->input("perPage");
-            $toSkip = ($page-1) * $perPage;
-            $users = User::name($filter)
-                            ->email($filter)
-                            ->phone($filter)
-                            ->website($filter)
-                            ->company($filter)
-                            ->order($field, $order)
-                            ->skip($toSkip)
-                            ->take($perPage)
-                            ->get();
-        }
+        $field = $request->input("field");
+        $order = $request->input("order");
+        $page = $request->input("page");
+        $perPage = $request->input("perPage");
+        $toSkip = ($page-1) * $perPage;
+        $users = User::name($filter)
+                        ->email($filter)
+                        ->phone($filter)
+                        ->website($filter)
+                        ->company($filter)
+                        ->order($field, $order)
+                        ->skip($toSkip)
+                        ->take($perPage)
+                        ->get();
         $countAndUsers = json_encode(array($count, $users));
         return response($countAndUsers, 200)
                 ->header('X-Total-Count', $count)
