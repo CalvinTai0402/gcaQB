@@ -33,3 +33,10 @@ Route::post('users', [App\Http\Controllers\UserController::class, 'store']);
 Route::put('users/{user}', [App\Http\Controllers\UserController::class, 'update']);
 Route::delete('users', [App\Http\Controllers\UserController::class, 'destroyMany']);
 Route::delete('users/{user}', [App\Http\Controllers\UserController::class, 'destroy']);
+
+Route::get('customers', [App\Http\Controllers\CustomerController::class, 'index']);
+Route::get('customers/{customer}', [App\Http\Controllers\CustomerController::class, 'show']);
+Route::post('customers', [App\Http\Controllers\CustomerController::class, 'store']);
+Route::put('customers/{customer}', [App\Http\Controllers\CustomerController::class, 'update']);
+Route::delete('customers', [App\Http\Controllers\CustomerController::class, 'destroyMany']);
+Route::delete('customers/{customer}', [App\Http\Controllers\CustomerController::class, 'destroy']);
