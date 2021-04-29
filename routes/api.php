@@ -40,3 +40,10 @@ Route::post('customers', [App\Http\Controllers\CustomerController::class, 'store
 Route::put('customers/{customer}', [App\Http\Controllers\CustomerController::class, 'update']);
 Route::delete('customers', [App\Http\Controllers\CustomerController::class, 'destroyMany']);
 Route::delete('customers/{customer}', [App\Http\Controllers\CustomerController::class, 'destroy']);
+
+Route::get('vendors', [App\Http\Controllers\VendorController::class, 'index']);
+Route::get('vendors/{vendor}', [App\Http\Controllers\VendorController::class, 'show']);
+Route::post('vendors', [App\Http\Controllers\VendorController::class, 'store']);
+Route::put('vendors/{vendor}', [App\Http\Controllers\VendorController::class, 'update']);
+Route::delete('vendors', [App\Http\Controllers\VendorController::class, 'destroyMany']);
+Route::delete('vendors/{vendor}', [App\Http\Controllers\VendorController::class, 'destroy']);

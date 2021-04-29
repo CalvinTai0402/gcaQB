@@ -8,12 +8,14 @@ import dataProvider from "./dataProvider";
 import PostIcon from "@material-ui/icons/Book";
 import UserIcon from "@material-ui/icons/Group";
 import CustomerIcon from "@material-ui/icons/PersonAddSharp";
+import VendorIcon from "@material-ui/icons/PersonAddSharp";
 
 import Dashboard from "./Dashboard";
 import authProvider from "./authProvider";
 import { UserList } from "./users";
 import { PostList, PostEdit, PostCreate } from "./posts";
 import { CustomerList, CustomerEdit, CustomerCreate } from "./customers";
+import { VendorList, VendorEdit, VendorCreate } from "./vendors";
 
 // const dataProvider = jsonServerProvider("http://localhost:5000");
 
@@ -34,6 +36,8 @@ const App = () => (
             <Resource name="users" list={UserList} icon={UserIcon} />
             <Resource name="customers" list={CustomerList} icon={CustomerIcon} edit={CustomerEdit}
                 create={CustomerCreate} />
+            <Resource name="vendors" list={VendorList} icon={VendorIcon} edit={VendorEdit}
+                create={VendorCreate} />
         </Admin>
     </div>
 );

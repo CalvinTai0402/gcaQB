@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import {
     List,
     Datagrid,
@@ -16,7 +15,7 @@ import {
 import MyUrlField from "./MyUrlField";
 import { checkEmailIsUnique } from "./validations";
 
-const validateCustomerCreation = async (values) => {
+const validateVendorCreation = async (values) => {
     const errors = {};
     if (!values.title) {
         errors.title = 'The title is required';
@@ -30,14 +29,14 @@ const validateCustomerCreation = async (values) => {
     if (!values.email) {
         errors.email = 'Email is required';
     }
-    const isEmailUnique = await checkEmailIsUnique(values.email, "", "customers");
+    const isEmailUnique = await checkEmailIsUnique(values.email, "", "vendors");
     if (!isEmailUnique) {
         errors.email = 'Email already used';
     }
     return errors
 };
 
-const validateCustomerEdit = async (values) => {
+const validateVendorEdit = async (values) => {
     const errors = {};
     if (!values.title) {
         errors.title = 'The title is required';
@@ -52,26 +51,26 @@ const validateCustomerEdit = async (values) => {
         errors.email = 'Email is required';
     }
     let currentEmail = ""
-    await fetch("http://localhost:8000/api/customers/" + values.id).then(async function (response) {
+    await fetch("http://localhost:8000/api/vendors/" + values.id).then(async function (response) {
         await response.json().then(function (jsonData) {
             currentEmail = jsonData.email;
         })
     })
-    const isEmailUnique = await checkEmailIsUnique(values.email, currentEmail, "customers");
+    const isEmailUnique = await checkEmailIsUnique(values.email, currentEmail, "vendors");
     if (!isEmailUnique) {
         errors.email = 'Email already used';
     }
     return errors
 };
 
-const CustomerFilter = (props) => (
+const VendorFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
     </Filter>
 );
 
-export const CustomerList = (props) => (
-    <List filters={<CustomerFilter />} {...props}>
+export const VendorList = (props) => (
+    <List filters={<VendorFilter />} {...props}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
@@ -87,35 +86,45 @@ export const CustomerList = (props) => (
     </List>
 );
 
-const CustomerTitle = ({ record }) => {
-    return <span>Customer {record ? `"${record.first_name}"` : ""}</span>;
+const VendorTitle = ({ record }) => {
+    return <span>Vendors {record ? `"${record.first_name}"` : ""}</span>;
 };
 
-export const CustomerEdit = (props) => (
-    <Edit title={<CustomerTitle />} {...props}>
-        <SimpleForm validate={validateCustomerEdit}>
+export const VendorEdit = (props) => (
+    <Edit title={<VendorTitle />} {...props}>
+        <SimpleForm validate={validateVendorEdit}>
             <TextInput disabled source="id" />
             <TextInput source="title" />
             <TextInput source="first_name" />
             <TextInput source="last_name" />
+            <TextInput source="suffix" />
             <TextInput label="Email Address" source="email" type="email" />
             <TextInput source="phone" />
             <TextInput label="Website" source="website" type="website" />
             <TextInput source="company" />
+            <TextInput source="notes" />
+            <TextInput label="Billing Rate (/hr)" source='billing_rate' />
+            <TextInput source="account_no" />
+            <TextInput source="business_id" />
         </SimpleForm>
     </Edit>
 );
 
-export const CustomerCreate = (props) => (
+export const VendorCreate = (props) => (
     <Create {...props}>
-        <SimpleForm validate={validateCustomerCreation}>
+        <SimpleForm validate={validateVendorCreation}>
             <TextInput source="title" />
             <TextInput source="first_name" />
             <TextInput source="last_name" />
+            <TextInput source="suffix" />
             <TextInput label="Email Address" source="email" type="email" />
             <TextInput source="phone" />
             <TextInput label="Website" source="website" type="website" />
             <TextInput source="company" />
+            <TextInput source="notes" />
+            <TextInput label="Billing Rate (/hr)" source='billing_rate' />
+            <TextInput source="account_no" />
+            <TextInput source="business_id" />
         </SimpleForm>
     </Create>
 );
