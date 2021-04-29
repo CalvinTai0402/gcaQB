@@ -13,7 +13,7 @@ import Dashboard from "./Dashboard";
 import authProvider from "./authProvider";
 import { UserList } from "./users";
 import { PostList, PostEdit, PostCreate } from "./posts";
-import { CustomerCreate } from "./customers";
+import { CustomerList, CustomerEdit, CustomerCreate, UserProfile } from "./customers";
 
 // const dataProvider = jsonServerProvider("http://localhost:5000");
 
@@ -32,7 +32,8 @@ const App = () => (
                 icon={PostIcon}
             />
             <Resource name="users" list={UserList} icon={UserIcon} />
-            {/* <Resource name="customers" create={CustomerCreate} icon={CustomerIcon} /> */}
+            <Resource name="customers" list={CustomerList} icon={CustomerIcon} edit={CustomerEdit}
+                create={CustomerCreate} />
         </Admin>
     </div>
 );

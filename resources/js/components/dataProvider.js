@@ -115,7 +115,6 @@ export default {
             filter: JSON.stringify({ id: params.ids }),
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        console.log(url);
         return httpClient(url, {
             method: "DELETE",
         }).then(({ json }) => ({ data: json }));

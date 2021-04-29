@@ -17,7 +17,7 @@ class UserController extends Controller
         $filter = $request->input("filter");
         $count = User::count();
         if ((!is_null(json_decode($filter))) && gettype(json_decode($filter)) != "integer") {
-            if(property_exists((json_decode($filter)), "id")){
+            if (property_exists((json_decode($filter)), "id")) {
                 $ids = json_decode($filter)->id;
                 $users = User::find($ids);
                 return $users;
@@ -27,20 +27,20 @@ class UserController extends Controller
         $order = $request->input("order");
         $page = $request->input("page");
         $perPage = $request->input("perPage");
-        $toSkip = ($page-1) * $perPage;
+        $toSkip = ($page - 1) * $perPage;
         $users = User::name($filter)
-                        ->email($filter)
-                        ->phone($filter)
-                        ->website($filter)
-                        ->company($filter)
-                        ->order($field, $order)
-                        ->skip($toSkip)
-                        ->take($perPage)
-                        ->get();
+            ->email($filter)
+            ->phone($filter)
+            ->website($filter)
+            ->company($filter)
+            ->order($field, $order)
+            ->skipPage($toSkip)
+            ->take($perPage)
+            ->get();
         $countAndUsers = json_encode(array($count, $users));
         return response($countAndUsers, 200)
-                ->header('X-Total-Count', $count)
-                ->header('Access-Control-Expose-Headers', 'X-Total-Count');
+            ->header('X-Total-Count', $count)
+            ->header('Access-Control-Expose-Headers', 'X-Total-Count');
     }
 
     /**
@@ -119,8 +119,8 @@ class UserController extends Controller
         $filter = $request->input("filter");
         $filter = json_decode($filter);
         $ids = trim(json_encode($filter->id), "[]"); // $ids is of the string type
-        $usersToDelete = User::whereIn('id',explode(",",$ids))->get();
-        User::whereIn('id',explode(",",$ids))->delete();
+        $usersToDelete = User::whereIn('id', explode(",", $ids))->get();
+        User::whereIn('id', explode(",", $ids))->delete();
         return response()->json($usersToDelete, 200);
     }
 }
