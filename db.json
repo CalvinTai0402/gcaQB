@@ -1,30 +1,6 @@
 {
   "posts": [
     {
-      "id": 1,
-      "name": "Post one",
-      "title": "Title one",
-      "body": "Body one",
-      "userId": 2,
-      "publishedAt": "2021-04-16"
-    },
-    {
-      "id": 2,
-      "name": "Post two",
-      "title": "Title 2",
-      "body": "rem ipsum just kidding idk what it is three",
-      "userId": 2,
-      "publishedAt": "2021-04-08"
-    },
-    {
-      "id": 3,
-      "name": "Post three",
-      "title": "Title three",
-      "body": "rem ipsum just kidding idk what it is one",
-      "userId": 1,
-      "publishedAt": "2021-04-15"
-    },
-    {
       "userId": 1,
       "title": "Calvin's new post",
       "body": "Lorem ipsum just kidding idk what it is",

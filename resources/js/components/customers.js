@@ -10,7 +10,8 @@ import {
     Edit,
     Create,
     SimpleForm,
-    useDataProvider,
+    EditButton,
+    DeleteButton,
 } from "react-admin";
 import MyUrlField from "./MyUrlField";
 import { checkEmailIsUnique } from "./validations";
@@ -71,7 +72,7 @@ const CustomerFilter = (props) => (
 
 export const CustomerList = (props) => (
     <List filters={<CustomerFilter />} {...props}>
-        <Datagrid rowClick="edit">
+        <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
             <TextField source="first_name" />
@@ -80,6 +81,8 @@ export const CustomerList = (props) => (
             <TextField source="phone" />
             <MyUrlField source="website" />
             <TextField source="company" />
+            <EditButton />
+            <DeleteButton />
         </Datagrid>
     </List>
 );

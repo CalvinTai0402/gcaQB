@@ -13,7 +13,7 @@ import Dashboard from "./Dashboard";
 import authProvider from "./authProvider";
 import { UserList } from "./users";
 import { PostList, PostEdit, PostCreate } from "./posts";
-import { CustomerList, CustomerEdit, CustomerCreate, UserProfile } from "./customers";
+import { CustomerList, CustomerEdit, CustomerCreate } from "./customers";
 
 // const dataProvider = jsonServerProvider("http://localhost:5000");
 

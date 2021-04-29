@@ -6,6 +6,7 @@ import {
     EmailField,
     TextInput,
     Filter,
+    DeleteButton,
 } from "react-admin";
 import MyUrlField from "./MyUrlField";
 
@@ -24,6 +25,7 @@ export const UserList = (props) => (
             <TextField source="phone" />
             <MyUrlField source="website" />
             <TextField source="company_name" />
+            <DeleteButton />
         </Datagrid>
     </List>
 );
