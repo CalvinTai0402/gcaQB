@@ -30,7 +30,7 @@ const validateCustomerCreation = async (values) => {
     if (!values.email) {
         errors.email = 'Email is required';
     }
-    const isEmailUnique = await checkEmailIsUnique(values.email, "");
+    const isEmailUnique = await checkEmailIsUnique(values.email, "", "customers");
     if (!isEmailUnique) {
         errors.email = 'Email already used';
     }
