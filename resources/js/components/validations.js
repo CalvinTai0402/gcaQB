@@ -18,3 +18,15 @@ export const checkEmailIsUnique = async (email, currentEmail, tableName) => {
         });
     return isUnique;
 }
+
+// export function debounce(callback, wait) {
+//     let timerId;
+//     return (...args) => {
+//         clearTimeout(timerId);
+//         timerId = setTimeout(async () => {
+//             const errors = await callback(...args);
+//             console.log(errors)
+//             return errors;
+//         }, wait);
+//     };
+// }

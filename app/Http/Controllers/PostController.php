@@ -104,12 +104,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ($post) {
-            $post->delete();
-        } else {
-            return response()->json(array(), 200);
+        if ($post->delete()) {
+            return response()->json(["status" => 204]);
         }
-        return response()->json(null, 204);
     }
 
     public function destroyMany(Request $request)
