@@ -7,6 +7,7 @@ import {
     TextField,
     ReferenceField,
     EditButton,
+    DeleteButton,
     Edit,
     Create,
     SimpleForm,
@@ -46,6 +47,7 @@ export const PostList = (props) => {
                     <TextField source="body" />
                     <DateField source="published_at" />
                     <EditButton />
+                    <DeleteButton />
                 </Datagrid>
             )}
         </List>
