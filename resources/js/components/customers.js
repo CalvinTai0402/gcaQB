@@ -57,7 +57,7 @@ const validateCustomerEdit = async (values) => {
             currentEmail = jsonData.email;
         })
     })
-    const isEmailUnique = await checkEmailIsUnique(values.email, currentEmail);
+    const isEmailUnique = await checkEmailIsUnique(values.email, currentEmail, "customers");
     if (!isEmailUnique) {
         errors.email = 'Email already used';
     }

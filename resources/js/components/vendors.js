@@ -56,7 +56,7 @@ const validateVendorEdit = async (values) => {
             currentEmail = jsonData.email;
         })
     })
-    const isEmailUnique = await checkEmailIsUnique(values.email, currentEmail);
+    const isEmailUnique = await checkEmailIsUnique(values.email, currentEmail, "vendors");
     if (!isEmailUnique) {
         errors.email = 'Email already used';
     }
@@ -97,10 +97,15 @@ export const VendorEdit = (props) => (
             <TextInput source="title" />
             <TextInput source="first_name" />
             <TextInput source="last_name" />
+            <TextInput source="suffix" />
             <TextInput label="Email Address" source="email" type="email" />
             <TextInput source="phone" />
             <TextInput label="Website" source="website" type="website" />
             <TextInput source="company" />
+            <TextInput source="notes" />
+            <TextInput label="Billing Rate (/hr)" source='billing_rate' />
+            <TextInput source="account_no" />
+            <TextInput source="business_id" />
         </SimpleForm>
     </Edit>
 );
@@ -111,10 +116,15 @@ export const VendorCreate = (props) => (
             <TextInput source="title" />
             <TextInput source="first_name" />
             <TextInput source="last_name" />
+            <TextInput source="suffix" />
             <TextInput label="Email Address" source="email" type="email" />
             <TextInput source="phone" />
             <TextInput label="Website" source="website" type="website" />
             <TextInput source="company" />
+            <TextInput source="notes" />
+            <TextInput label="Billing Rate (/hr)" source='billing_rate' />
+            <TextInput source="account_no" />
+            <TextInput source="business_id" />
         </SimpleForm>
     </Create>
 );

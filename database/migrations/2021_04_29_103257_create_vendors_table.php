@@ -28,6 +28,10 @@ class CreateVendorsTable extends Migration
             $table->string('other')->nullable();
             $table->string('website')->nullable();
             $table->string('address')->nullable();
+            $table->string('notes')->nullable();
+            $table->string('billing_rate')->nullable();
+            $table->string('account_no')->nullable();
+            $table->string('business_id')->nullable();
             $table->timestamps();
         });
     }

@@ -22,7 +22,11 @@ class Vendor extends Model
         'fax',
         'other',
         'website',
-        'address'
+        'address',
+        'notes',
+        'billing_rate',
+        'account_no',
+        'business_id'
     ];
 
     public function scopeName($query, $filter)
