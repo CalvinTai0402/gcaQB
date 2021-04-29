@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import {
     List,
     Datagrid,
@@ -9,11 +10,12 @@ import {
     Edit,
     Create,
     SimpleForm,
+    useDataProvider,
 } from "react-admin";
 import MyUrlField from "./MyUrlField";
 import { checkEmailIsUnique } from "./validations";
 
-const validateUserCreation = async (values) => {
+const validateCustomerCreation = async (values) => {
     const errors = {};
     if (!values.title) {
         errors.title = 'The title is required';
@@ -24,7 +26,37 @@ const validateUserCreation = async (values) => {
     if (!values.last_name) {
         errors.last_name = 'The last name is required';
     }
-    const isEmailUnique = await checkEmailIsUnique(values.email);
+    if (!values.email) {
+        errors.email = 'Email is required';
+    }
+    const isEmailUnique = await checkEmailIsUnique(values.email, "");
+    if (!isEmailUnique) {
+        errors.email = 'Email already used';
+    }
+    return errors
+};
+
+const validateCustomerEdit = async (values) => {
+    const errors = {};
+    if (!values.title) {
+        errors.title = 'The title is required';
+    }
+    if (!values.first_name) {
+        errors.first_name = 'The first name is required';
+    }
+    if (!values.last_name) {
+        errors.last_name = 'The last name is required';
+    }
+    if (!values.email) {
+        errors.email = 'Email is required';
+    }
+    let currentEmail = ""
+    await fetch("http://localhost:8000/api/customers/" + values.id).then(async function (response) {
+        await response.json().then(function (jsonData) {
+            currentEmail = jsonData.email;
+        })
+    })
+    const isEmailUnique = await checkEmailIsUnique(values.email, currentEmail);
     if (!isEmailUnique) {
         errors.email = 'Email already used';
     }
@@ -58,7 +90,7 @@ const CustomerTitle = ({ record }) => {
 
 export const CustomerEdit = (props) => (
     <Edit title={<CustomerTitle />} {...props}>
-        <SimpleForm>
+        <SimpleForm validate={validateCustomerEdit}>
             <TextInput disabled source="id" />
             <TextInput source="title" />
             <TextInput source="first_name" />
@@ -73,7 +105,7 @@ export const CustomerEdit = (props) => (
 
 export const CustomerCreate = (props) => (
     <Create {...props}>
-        <SimpleForm validate={validateUserCreation}>
+        <SimpleForm validate={validateCustomerCreation}>
             <TextInput source="title" />
             <TextInput source="first_name" />
             <TextInput source="last_name" />

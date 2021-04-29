@@ -1,12 +1,12 @@
-export const checkEmailIsUnique = async (email) => {
+export const checkEmailIsUnique = async (email, currentEmail) => {
     const apiUrl = "http://localhost:8000/api/customers";
-    return fetch(apiUrl)
+    let isUnique = true;
+    await fetch(apiUrl)
         .then(function (response) {
-            return response.json().then(function (jsonData) {
+            return response.json().then(async function (jsonData) {
                 let customers = jsonData[1];
-                let isUnique = true;
-                customers.forEach(function (customer, index) {
-                    if (customer.email === email) {
+                await customers.forEach(function (customer, index) {
+                    if (customer.email !== currentEmail && customer.email === email) {
                         isUnique = false;
                     }
                 })
@@ -16,4 +16,5 @@ export const checkEmailIsUnique = async (email) => {
         .catch(function (err) {
             console.log("Fetch Error :-S", err);
         });
+    return isUnique;
 }
