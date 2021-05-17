@@ -11,6 +11,8 @@ import {
     SimpleForm,
     EditButton,
     DeleteButton,
+    FileInput,
+    FileField
 } from "react-admin";
 import MyUrlField from "./MyUrlField";
 import { checkEmailIsUnique } from "./validations";
@@ -125,6 +127,9 @@ export const VendorCreate = (props) => (
             <TextInput label="Billing Rate (/hr)" source='billing_rate' />
             <TextInput source="account_no" />
             <TextInput source="business_id" />
+            <FileInput source="attachments" label="Attachments" accept="application/pdf">
+                <FileField source="src" title="title" />
+            </FileInput>
         </SimpleForm>
     </Create>
 );

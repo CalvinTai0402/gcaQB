@@ -26,7 +26,12 @@ class Vendor extends Model
         'notes',
         'billing_rate',
         'account_no',
-        'business_id'
+        'business_id',
+        'attachments'
+    ];
+
+    public $casts = [
+        'attachments' => 'array'
     ];
 
     public function scopeName($query, $filter)

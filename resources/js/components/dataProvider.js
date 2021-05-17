@@ -97,13 +97,37 @@ export default {
         }).then(({ json }) => ({ data: json }));
     },
 
-    create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}`, {
-            method: "POST",
-            body: JSON.stringify(params.data),
-        }).then(({ json }) => ({
-            data: { ...params.data, id: json.id },
-        })),
+    create: (resource, params) => {
+        if (!params.data.attachments) {
+            return httpClient(`${apiUrl}/${resource}`, {
+                method: "POST",
+                body: JSON.stringify(params.data),
+            }).then(({ json }) => ({
+                data: { ...params.data, id: json.id },
+            }));
+        }
+
+        // Convert to array in case multiple attachments are needed in the future
+        const newAttachments = [params.data.attachments];
+
+        return Promise.all(newAttachments.map(convertFileToBase64))
+            .then(base64Pictures =>
+                base64Pictures.map(picture64 => ({
+                    src: picture64,
+                    title: `${params.data.title}`,
+                }))
+            )
+            .then(transformedNewAttachments => {
+                params.data.attachments = [...transformedNewAttachments];
+                console.log(params.data);
+                return httpClient(`${apiUrl}/${resource}`, {
+                    method: "POST",
+                    body: JSON.stringify(params.data),
+                }).then(({ json }) => ({
+                    data: { ...params.data, attachments: [...transformedNewAttachments], id: json.id },
+                })) }
+            );
+    },
 
     delete: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`, {
@@ -127,3 +151,16 @@ export default {
         // });
     },
 };
+
+/**
+ * Convert a `File` object returned by the upload input into a base 64 string.
+ * That's not the most optimized way to store images in production, but it's
+ * enough to illustrate the idea of data provider decoration.
+ */
+const convertFileToBase64 = file => new Promise((resolve, reject) => {
+     const reader = new FileReader();
+     reader.onload = () => resolve(reader.result);
+     reader.onerror = reject;
+
+     reader.readAsDataURL(file.rawFile);
+ });
