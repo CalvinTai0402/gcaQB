@@ -51,7 +51,39 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        $vendor = Vendor::create($request->all());
+        $data = $request->all();
+
+        if(array_key_exists('attachments', $data)) {
+            $attachments = $data['attachments'];
+            unset($data['attachments']);
+        }
+
+        $vendor = Vendor::create($data);
+
+        if(!empty($attachments)) {
+            $destinationPaths = [];
+
+            foreach($attachments as $attachment) {
+                $fileBase64 = $attachment['src'];
+                $fileTitle = $attachment['title'];
+                error_log(json_encode($attachment));
+                $split = explode('base64,', $fileBase64);
+                $file = $split[1];
+                $base = base64_decode($file);
+                $base64 = $fileTitle . '.' . explode('/', explode(':', substr($split[0], 0, strpos($split[0], ';')))[1])[1];
+                $directoryPath = public_path() . "/uploads/vendors/" . $vendor->id;
+                
+                if(!is_dir($directoryPath)) {
+                    mkdir($directoryPath);
+                }
+
+                $destinationPath = $directoryPath . '/' . $base64;             
+                file_put_contents($destinationPath, $base);
+                array_push($destinationPaths, $destinationPath);
+            }
+
+            $vendor->update(['attachments' => $destinationPaths]);
+        }
 
         return response()->json($vendor, 201);
     }
