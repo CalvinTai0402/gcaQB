@@ -110,14 +110,9 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        // $customer->delete();
-        // return response()->json(null, 204);
-        if ($customer) {
-            $customer->delete();
-        } else {
-            return response()->json(array(), 200);
+        if ($customer->delete()) {
+            return response()->json(["status" => 204]);
         }
-        return response()->json(null, 204);
     }
 
     public function destroyMany(Request $request)

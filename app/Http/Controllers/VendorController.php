@@ -89,8 +89,8 @@ class VendorController extends Controller
      */
     public function destroy(Vendor $vendor)
     {
-        if($vendor->delete()) {
-            return response()->json(['status' => 200]);
+        if ($vendor->delete()) {
+            return response()->json(['status' => 204]);
         }
     }
 
